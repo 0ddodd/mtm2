@@ -1,0 +1,77 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Club {
+  id: Int!
+  name: String!
+  students: [Student!]
+  teacher: Teacher
+}
+
+input CreateClubInput {
+  name: String!
+  teacherName: String!
+}
+
+input CreateStudentInput {
+  clubs: [String!]!
+  email: String
+  name: String!
+}
+
+input CreateTeacherInput {
+  email: String!
+  name: String!
+}
+
+type Mutation {
+  createClub(createClubInput: CreateClubInput!): Club!
+  createStudent(createStudentInput: CreateStudentInput!): Student!
+  createTeacher(createTeacherInput: CreateTeacherInput!): Teacher!
+  removeClub(id: Int!): Club!
+  removeStudent(id: Int!): Student!
+  removeTeacher(id: Int!): Teacher!
+  updateClub(updateClubInput: UpdateClubInput!): Club!
+  updateStudent(updateStudentInput: UpdateStudentInput!): Student!
+  updateTeacher(updateTeacherInput: UpdateTeacherInput!): Teacher!
+}
+
+type Query {
+  club(id: Int!): Club!
+  student(id: Int!): Student!
+  teacher(id: Int!): Teacher!
+}
+
+type Student {
+  clubs: [Club!]!
+  email: String
+  id: Int!
+  name: String!
+}
+
+type Teacher {
+  clubs: [Club!]!
+  email: String!
+  id: Int!
+  name: String!
+}
+
+input UpdateClubInput {
+  id: Int!
+  name: String
+  teacherName: String
+}
+
+input UpdateStudentInput {
+  clubs: [String!]
+  email: String
+  id: Int!
+  name: String
+}
+
+input UpdateTeacherInput {
+  email: String
+  id: Int!
+  name: String
+}

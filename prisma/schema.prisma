@@ -1,0 +1,42 @@
+// // This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 다대다 관계:
+// 학생과 클럽 간의 관계로, 여러 학생이 여러 클럽에 가입할 수 있고, 각 클럽에는 여러 학생이 가입할 수 있습니다.
+// 다대일 관계:
+// 각 클럽은 하나의 교사가 지도하며, 한 명의 교사는 여러 클럽을 지도할 수 있습니다.
+
+model Student {
+  id Int @id @default(autoincrement())
+  name String @unique
+  email String @unique
+  clubs Club[] @relation("StudentClub")
+}
+
+model Club {
+  id Int @id @default(autoincrement())
+  name String @unique
+  students Student[] @relation("StudentClub")
+  teacher Teacher @relation("ClubTeacher", fields: [teacherId], references: [id])
+  teacherId Int
+}
+
+model Teacher {
+  id Int @id @default(autoincrement())
+  name String @unique
+  email String @unique
+  clubs Club[] @relation("ClubTeacher") 
+}
+
